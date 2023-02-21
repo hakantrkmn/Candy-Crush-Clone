@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Data.Common;
 using Sirenix.OdinInspector;
 using Unity.Mathematics;
 using UnityEditor;
@@ -20,6 +21,7 @@ public class BoardManager : MonoBehaviour
     [Button]
     public void CreateBoard()
     {
+        
         foreach (var tile in tiles)
         {
             Destroy(tile);
@@ -41,10 +43,13 @@ public class BoardManager : MonoBehaviour
             {
                 var pos = offset+ new Vector3(j * (width / (rowAmount-1)), i * (height / (columnAmount-1)), 0);
                 var tile = Instantiate(tilePrefab, pos, quaternion.identity,transform);
-                rowManager.tileList[j].tile[i].tileController = tile.GetComponent<TileController>();
-                rowManager.tileList[j].tile[i].tilePoint = tile.transform.position;
-                columnManager.tileList[i].tile[j].tileController = tile.GetComponent<TileController>();
-                columnManager.tileList[i].tile[j].tilePoint = tile.transform.position;
+                var tempTile = new Tile();
+                tempTile.tilePoint = tile.transform.position;
+                tempTile.tileController = tile.GetComponent<TileController>();
+                tempTile.tileController.id = i;
+                columnManager.tileList[j].tile.Add(tempTile);
+                rowManager.tileList[i].tile.Add(tempTile);
+                
                 tiles.Add(tile);
             }
         }
@@ -52,12 +57,26 @@ public class BoardManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        for (int i = 0; i < columnAmount; i++)
+        {
+            var tempTileList = new TileList();
+
+            columnManager.tileList.Add(tempTileList);
+        }
+        for (int i = 0; i < rowAmount; i++)
+        {
+            var tempTileList = new TileList();
+
+            rowManager.tileList.Add(tempTileList);
+        }
+
     }
 
-    // Update is called once per frame
-    void Update()
+    [Button]
+    public void FillColumns()
     {
+        columnManager.CheckColumnForFill();
         
     }
+   
 }
