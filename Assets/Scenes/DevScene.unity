@@ -483,8 +483,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tileList: []
-  dotPrefab: {fileID: 4426067056769962124, guid: 6e9c81f11bf7e41978d9fdbb942799cc,
-    type: 3}
+  dotPrefabs:
+  - {fileID: 4426067056769962124, guid: f7c4d9882b8f64dd0958f4e8c2b2923a, type: 3}
+  - {fileID: 4426067056769962124, guid: 11c3b2b5bf4ab40ad86c8336c4a5a4e7, type: 3}
+  - {fileID: 4426067056769962124, guid: 4b0e9e4d1e5b64a22800c8dfbff436c0, type: 3}
+  - {fileID: 4426067056769962124, guid: 6e9c81f11bf7e41978d9fdbb942799cc, type: 3}
+  - {fileID: 4426067056769962124, guid: 81fe8ff0f618846688ffd12b8feb0f57, type: 3}
 --- !u!114 &1249697404
 MonoBehaviour:
   m_ObjectHideFlags: 0

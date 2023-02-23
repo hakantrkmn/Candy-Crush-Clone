@@ -19,14 +19,13 @@ public enum MoneyStates
     OnRegister,
 
 }
-public enum MoneyPrices
+public enum DotColors
 {
-    OneDolar,
-    TwoDolar,
-    FiveDolar,
-    TenDolar,
-    TwentyDolar,
-    TwentyFiveDolar,
+    Blue,
+    Green,
+    Orange,
+    Red,
+    Yellow
 
 }
 

@@ -1,8 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data.Common;
 using Sirenix.OdinInspector;
 using Unity.Mathematics;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 
@@ -31,10 +33,10 @@ public class BoardManager : MonoBehaviour
         var tileYSize = 1920 / (float)columnAmount;
         tilePrefab.transform.localScale = new Vector3(tileXSize / 100, tileYSize/100, 1);
 
-        var height = 1920 - (tilePrefab.GetComponentInChildren<BoxCollider2D>().size.y*tilePrefab.transform.localScale.y);
-        var width = 1080 - (tilePrefab.GetComponentInChildren<BoxCollider2D>().size.x*tilePrefab.transform.localScale.x);
-        var offset = new Vector3((tilePrefab.GetComponentInChildren<BoxCollider2D>().size.x*tilePrefab.transform.localScale.x) / 2,
-            (tilePrefab.GetComponentInChildren<BoxCollider2D>().size.y*tilePrefab.transform.localScale.y) / 2, 0);
+        var height = 1920 - (tilePrefab.GetComponentInChildren<RectTransform>().rect.height*tilePrefab.transform.localScale.y);
+        var width = 1080 - (tilePrefab.GetComponentInChildren<RectTransform>().rect.width*tilePrefab.transform.localScale.x);
+        var offset = new Vector3((tilePrefab.GetComponentInChildren<RectTransform>().rect.width*tilePrefab.transform.localScale.x) / 2,
+            (tilePrefab.GetComponentInChildren<RectTransform>().rect.height*tilePrefab.transform.localScale.y) / 2, 0);
         
 
         for (int i = 0; i < columnAmount; i++)
@@ -46,7 +48,8 @@ public class BoardManager : MonoBehaviour
                 var tempTile = new Tile();
                 tempTile.tilePoint = tile.transform.position;
                 tempTile.tileController = tile.GetComponent<TileController>();
-                tempTile.tileController.id = i;
+                tempTile.tileController.columnPlace = i;
+                tempTile.tileController.columnId = j;
                 columnManager.tileList[j].tile.Add(tempTile);
                 rowManager.tileList[i].tile.Add(tempTile);
                 
@@ -78,5 +81,5 @@ public class BoardManager : MonoBehaviour
         columnManager.CheckColumnForFill();
         
     }
-   
+
 }

@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using DG.Tweening;
 using Unity.Mathematics;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class ColumnManager : MonoBehaviour
 {
     
     public List<TileList> tileList;
     int idCount;
-    public GameObject dotPrefab;
+    public List<GameObject> dotPrefabs;
     public void CheckColumnForFill()
     {
         for (int i = 0; i < tileList.Count; i++)
@@ -39,7 +40,7 @@ public class ColumnManager : MonoBehaviour
            
             for (int k = idCount; k < tileList[i].tile.Count; k++)
             {
-                var obj = Instantiate(dotPrefab, tileList[i].tile[k].tilePoint, quaternion.identity,tileList[i].tile[k].tileController.transform);
+                var obj = Instantiate(dotPrefabs[Random.Range(0,dotPrefabs.Count)], tileList[i].tile[k].tilePoint, quaternion.identity,tileList[i].tile[k].tileController.transform);
                 tileList[i].tile[k].dot = obj.GetComponent<DotController>();
             }
 
