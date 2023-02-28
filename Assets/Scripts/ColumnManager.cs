@@ -41,7 +41,7 @@ public class ColumnManager : MonoBehaviour
             for (int k = idCount; k < tileList[i].tile.Count; k++)
             {
                 
-                var obj = Instantiate(dotPrefabs[Random.Range(0,dotPrefabs.Count)], tileList[i].tile[tileList[i].tile.Count-1].tilePoint+new Vector3(0,600,0), quaternion.identity,tileList[i].tile[k].tileController.transform);
+                var obj = Instantiate(dotPrefabs[Random.Range(0,dotPrefabs.Count)], tileList[i].tile[tileList[i].tile.Count-1].tilePoint+new Vector3(0,2,0), quaternion.identity,tileList[i].tile[k].tileController.transform);
                 obj.transform.DOLocalMove(Vector3.zero, .2f);
                 tileList[i].tile[k].tileController.tileDot = obj.GetComponent<DotController>();
                 tileList[i].tile[k].dot = obj.GetComponent<DotController>();

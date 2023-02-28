@@ -64,8 +64,11 @@ public class BoardManager : MonoBehaviour
         {
             for (int j = 0; j < rowAmount; j++)
             {
-                var pos = offset+ new Vector3(j * (width / (rowAmount-1)), i * (height / (columnAmount-1)), 0);
+                
+                var pos =  new Vector3((j * (width / (rowAmount-1))-(width*.5f)), (i * (height / (columnAmount-1))-(height*.5f)), 0);
                 var tile = Instantiate(tilePrefab, pos, quaternion.identity,transform);
+                Debug.Log(pos);
+                tile.GetComponent<RectTransform>().localPosition = pos;
                 var tempTile = new Tile();
                 tempTile.tilePoint = tile.transform.position;
                 tempTile.tileController = tile.GetComponent<TileController>();
@@ -78,6 +81,8 @@ public class BoardManager : MonoBehaviour
             }
         }
     }
+
+    
     
     void Start()
     {
@@ -103,8 +108,10 @@ public class BoardManager : MonoBehaviour
     public void FillColumns()
     {
         columnManager.CheckColumnForFill();
-        transform.parent.GetComponent<Canvas>().renderMode = RenderMode.ScreenSpaceCamera;
-        transform.parent.GetComponent<Canvas>().worldCamera = Camera.main;
+        foreach (var tile in tiles)
+        {
+            tile.GetComponent<TileController>().CheckCombo();
+        }
 
     }
 
