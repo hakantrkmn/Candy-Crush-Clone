@@ -13,12 +13,7 @@ public enum InGamePanelTypes
     ProgressBar,
     Both
 }
-public enum MoneyStates
-{
-    OnDesk,
-    OnRegister,
 
-}
 public enum DotColors
 {
     Blue,
@@ -53,6 +48,13 @@ public enum ProgressBarTypes
     OnlyFillBar
 }
 
+public enum SwipeDirections
+{
+    Up,
+    Left,
+    Right,
+    Down
+}
 public enum ProductTypes
 {
     Type_1,

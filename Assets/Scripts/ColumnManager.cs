@@ -7,7 +7,7 @@ using Random = UnityEngine.Random;
 
 public class ColumnManager : MonoBehaviour
 {
-    
+    public Transform dotSpawnPoint;
     public List<TileList> tileList;
     int idCount;
     public List<GameObject> dotPrefabs;
@@ -23,14 +23,14 @@ public class ColumnManager : MonoBehaviour
 
                     if (idCount!=j)
                     {
-                        
-                        var temp = tileList[i].tile[j];
+                        Utility.FillEmptyTile(tileList[i].tile[idCount],tileList[i].tile[j]);
+                        /*var temp = tileList[i].tile[j];
                         tileList[i].tile[idCount].dot = temp.dot;
                         tileList[i].tile[idCount].dot.transform.parent = tileList[i].tile[idCount].tileController.transform;
                         tileList[i].tile[idCount].dot.transform.DOLocalMove(Vector3.zero,2f);
 
                         tileList[i].tile[j].dot = null;
-
+                        */
 
                     }
                     idCount++;
@@ -40,7 +40,10 @@ public class ColumnManager : MonoBehaviour
            
             for (int k = idCount; k < tileList[i].tile.Count; k++)
             {
-                var obj = Instantiate(dotPrefabs[Random.Range(0,dotPrefabs.Count)], tileList[i].tile[k].tilePoint, quaternion.identity,tileList[i].tile[k].tileController.transform);
+                
+                var obj = Instantiate(dotPrefabs[Random.Range(0,dotPrefabs.Count)], tileList[i].tile[tileList[i].tile.Count-1].tilePoint+new Vector3(0,600,0), quaternion.identity,tileList[i].tile[k].tileController.transform);
+                obj.transform.DOLocalMove(Vector3.zero, .2f);
+                tileList[i].tile[k].tileController.tileDot = obj.GetComponent<DotController>();
                 tileList[i].tile[k].dot = obj.GetComponent<DotController>();
             }
 

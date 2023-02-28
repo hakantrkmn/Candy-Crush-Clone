@@ -12,7 +12,7 @@ public class Tile
 [Serializable]
 public class TileList
 {
-    public List<Tile> tile;
+    public List<Tile> tile = new List<Tile>();
 
 }
 

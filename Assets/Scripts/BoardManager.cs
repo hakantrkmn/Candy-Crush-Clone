@@ -20,6 +20,27 @@ public class BoardManager : MonoBehaviour
 
     public List<GameObject> tiles;
 
+    private float canvasWidth;
+    private float canvasHeight;
+
+
+    
+    private void OnEnable()
+    {
+        EventManager.FillTheColumns += FillTheColumns;
+    }
+
+    private void FillTheColumns()
+    {
+        FillColumns();
+    }
+
+    private void OnDisable()
+    {
+        EventManager.FillTheColumns -= FillTheColumns;
+
+    }
+
     [Button]
     public void CreateBoard()
     {
@@ -29,12 +50,12 @@ public class BoardManager : MonoBehaviour
             Destroy(tile);
         }
         tiles.Clear();
-        var tileXSize = 1080 / (float)rowAmount;
-        var tileYSize = 1920 / (float)columnAmount;
-        tilePrefab.transform.localScale = new Vector3(tileXSize / 100, tileYSize/100, 1);
+        var tileXSize = canvasWidth / (float)rowAmount;
+        var tileYSize = canvasHeight / (float)columnAmount;
+        tilePrefab.transform.localScale = new Vector3(tileXSize / (rowAmount*columnAmount), tileYSize/(rowAmount*columnAmount), 1);
 
-        var height = 1920 - (tilePrefab.GetComponentInChildren<RectTransform>().rect.height*tilePrefab.transform.localScale.y);
-        var width = 1080 - (tilePrefab.GetComponentInChildren<RectTransform>().rect.width*tilePrefab.transform.localScale.x);
+        var height = canvasHeight - (tilePrefab.GetComponentInChildren<RectTransform>().rect.height*tilePrefab.transform.localScale.y);
+        var width = canvasWidth - (tilePrefab.GetComponentInChildren<RectTransform>().rect.width*tilePrefab.transform.localScale.x);
         var offset = new Vector3((tilePrefab.GetComponentInChildren<RectTransform>().rect.width*tilePrefab.transform.localScale.x) / 2,
             (tilePrefab.GetComponentInChildren<RectTransform>().rect.height*tilePrefab.transform.localScale.y) / 2, 0);
         
@@ -57,9 +78,12 @@ public class BoardManager : MonoBehaviour
             }
         }
     }
-    // Start is called before the first frame update
+    
     void Start()
     {
+        canvasHeight = transform.parent.GetComponent<RectTransform>().rect.height;
+        canvasWidth = transform.parent.GetComponent<RectTransform>().rect.width;
+
         for (int i = 0; i < columnAmount; i++)
         {
             var tempTileList = new TileList();
@@ -68,9 +92,9 @@ public class BoardManager : MonoBehaviour
         }
         for (int i = 0; i < rowAmount; i++)
         {
-            var tempTileList = new TileList();
+            var tempTileList2 = new TileList();
 
-            rowManager.tileList.Add(tempTileList);
+            rowManager.tileList.Add(tempTileList2);
         }
 
     }
@@ -79,7 +103,9 @@ public class BoardManager : MonoBehaviour
     public void FillColumns()
     {
         columnManager.CheckColumnForFill();
-        
+        transform.parent.GetComponent<Canvas>().renderMode = RenderMode.ScreenSpaceCamera;
+        transform.parent.GetComponent<Canvas>().worldCamera = Camera.main;
+
     }
 
 }

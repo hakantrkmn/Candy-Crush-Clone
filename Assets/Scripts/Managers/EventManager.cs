@@ -43,7 +43,10 @@ public static class EventManager
     public static Action<AnimationType, float> SetAnimation;
     #endregion
 
- 
+    public static Action<TileController> SwipeDone;
+    public static Action FillTheColumns;
+
+
 
 
 }
