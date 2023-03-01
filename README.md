@@ -1,5 +1,5 @@
 # Candy Crush Mechanic
- Cand crush mekaniğini çıkardığım bir proje. şeker sağa sola kaydırma,üstten random şeker düşmesi,şeker patlatma
+ Cand crush mekaniğini çıkardığım bir proje. şeker sağa sola kaydırma,üstten random şeker düşmesi,şeker patlatma.2-3 gün içinde çıkardım.
  
  
 - şeker swipe mekaniği
