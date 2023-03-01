@@ -7,7 +7,7 @@ public class DotController : MonoBehaviour
 {
     public DotColors dotColor;
 
-    public Vector2 mouseStartPos;
+    Vector2 mouseStartPos;
 
 
     private void Start()
@@ -56,7 +56,7 @@ public class DotController : MonoBehaviour
         SwipeAction(direction);
     }
 
-    public void SwipeAction(Vector2 direction)
+    void SwipeAction(Vector2 direction)
     {
         SwipeDirections swipeDir;
         if (direction.x == 0 && direction.y == 1)

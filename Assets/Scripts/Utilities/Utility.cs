@@ -5,20 +5,18 @@ using UnityEngine;
 
 public static class Utility
 {
-    public static List<Tile> lastChangeTiles = new List<Tile>();
+    public static readonly List<Tile> LastChangeTiles = new List<Tile>();
 
     public static void ChangeTiles(Tile firstTile, Tile secondTile)
     {
-        lastChangeTiles.Clear();
+        LastChangeTiles.Clear();
         
-        
-
         secondTile.dot.transform.parent = firstTile.tileController.transform;
         secondTile.dot.transform.DOLocalMove(Vector3.zero, .5f).OnComplete(() =>
         {
             EventManager.SwipeDone(firstTile.tileController);
         });
-        
+
 
         firstTile.dot.transform.parent = secondTile.tileController.transform;
         firstTile.dot.transform.DOLocalMove(Vector3.zero, .5f).OnComplete(() =>
@@ -34,17 +32,14 @@ public static class Utility
         temp.tilePoint = firstTile.tilePoint;
         firstTile.dot = secondTile.dot;
         secondTile.dot = temp.dot;
-        
-        
-        
     }
 
     public static void ReverseLastChange()
     {
-        if (lastChangeTiles.Count == 2)
+        if (LastChangeTiles.Count == 2)
         {
-            var firstTile = lastChangeTiles[1];
-            var secondTile = lastChangeTiles[0];
+            var firstTile = LastChangeTiles[1];
+            var secondTile = LastChangeTiles[0];
             secondTile.dot.transform.parent = firstTile.tileController.transform;
             secondTile.dot.transform.DOLocalMove(Vector3.zero, .5f);
 
@@ -59,8 +54,7 @@ public static class Utility
             temp.tilePoint = firstTile.tilePoint;
             firstTile.dot = secondTile.dot;
             secondTile.dot = temp.dot;
-            lastChangeTiles.Clear();
-
+            LastChangeTiles.Clear();
         }
     }
 
@@ -71,7 +65,7 @@ public static class Utility
         emptyTile.dot.transform.parent = emptyTile.tileController.transform;
         emptyTile.dot.transform.DOLocalMove(Vector3.zero, .5f);
         emptyTile.tileController.tileDot = temp.tileController.tileDot;
-        
+
         filledTile.dot = null;
     }
 }
