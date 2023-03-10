@@ -21,7 +21,7 @@ public class ColumnManager : MonoBehaviour
                 {
                     if (idCount != j)
                     {
-                        Utility.FillEmptyTile(tileList[i].tile[idCount], tileList[i].tile[j]);
+                        Utility.FillEmptyTile(tileList[i].tile[idCount], tileList[i].tile[j],j*.2f);
                     }
 
                     idCount++;
@@ -33,7 +33,7 @@ public class ColumnManager : MonoBehaviour
                 var obj = Instantiate(dotPrefabs[Random.Range(0, dotPrefabs.Count)],
                     tileList[i].tile[tileList[i].tile.Count - 1].tilePoint + new Vector3(0, .5f, 0), quaternion.identity,
                     tileList[i].tile[k].tileController.transform);
-                obj.transform.DOLocalMove(Vector3.zero, .2f);
+                obj.transform.DOLocalMove(Vector3.zero, .5f);
                 tileList[i].tile[k].tileController.tileDot = obj.GetComponent<DotController>();
                 tileList[i].tile[k].dot = obj.GetComponent<DotController>();
             }

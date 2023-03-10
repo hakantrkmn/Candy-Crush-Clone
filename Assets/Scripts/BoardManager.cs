@@ -18,6 +18,7 @@ public class BoardManager : MonoBehaviour
     private float canvasWidth;
     private float canvasHeight;
 
+    
 
     private void OnEnable()
     {
@@ -82,6 +83,7 @@ public class BoardManager : MonoBehaviour
 
     void Start()
     {
+        DOTween.SetTweensCapacity(5000,5000);
         columnManager=GetComponent<ColumnManager>();
         rowManager = GetComponent<RowManager>();
         canvasHeight = transform.parent.GetComponent<RectTransform>().rect.height;

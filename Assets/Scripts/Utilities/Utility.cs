@@ -11,14 +11,14 @@ public static class Utility
     {
         LastChangeTiles.Clear();
         
-        secondTile.dot.transform.parent = firstTile.tileController.transform;
+        secondTile.dot.transform.SetParent(firstTile.tileController.transform);
         secondTile.dot.transform.DOLocalMove(Vector3.zero, .5f).OnComplete(() =>
         {
             EventManager.SwipeDone(firstTile.tileController);
         });
 
 
-        firstTile.dot.transform.parent = secondTile.tileController.transform;
+        firstTile.dot.transform.SetParent(secondTile.tileController.transform);
         firstTile.dot.transform.DOLocalMove(Vector3.zero, .5f).OnComplete(() =>
         {
             EventManager.SwipeDone(secondTile.tileController);
@@ -58,11 +58,11 @@ public static class Utility
         }
     }
 
-    public static void FillEmptyTile(Tile emptyTile, Tile filledTile)
+    public static void FillEmptyTile(Tile emptyTile, Tile filledTile,float delay)
     {
         var temp = filledTile;
         emptyTile.dot = temp.dot;
-        emptyTile.dot.transform.parent = emptyTile.tileController.transform;
+        emptyTile.dot.transform.SetParent(emptyTile.tileController.transform);
         emptyTile.dot.transform.DOLocalMove(Vector3.zero, .5f);
         emptyTile.tileController.tileDot = temp.tileController.tileDot;
 
